@@ -35,10 +35,10 @@
             <section style="height: 100%;">
                 <h2>¿Y éste quién es?</h2>
                 <ul>
-                    <li>Estudió eletrónica</li>
-                    <li>Aún no aprende a programar</li>
-                    <li>Pero le gusta programar</li>
-                    <li>Ingeniero de software en Intel</li>
+                    <li>Estudió eletrónica.</li>
+                    <li>Aún no aprende a programar.</li>
+                    <li>Pero le gusta programar.</li>
+                    <li>Ingeniero de software en Intel.</li>
                 </ul>
             </section>
             <section style="height: 100%;">
@@ -46,77 +46,48 @@
                 <ul>
                     <li>Me enteré que existe hace como un año.</li>
                     <li>Me atreví a escribir código hace como 6 meses.</li>
-                    <li>Envié un par de parches a Diesel (nada elegante)</li>
-                    <li>Ayudo a traducir a español el <a href="https://github.com/skade/rust-three-days-course">curso de Rust en tres días</a></li>
-                    <li>Algunos programas internos (que veremos más adelante)</li>
+                    <li>Envié un par de parches a Diesel (nada elegante).</li>
+                    <li>Ayudo a traducir a español el <a href="https://github.com/skade/rust-three-days-course">curso de Rust en tres días.</a></li>
+                    <li>Algunos programas internos (que veremos más adelante).</li>
                 </ul>
             </section>
             <section style="height: 100%">
                 <h2>Mi problema con Rust</h2>
                 <ul>
-                    <li>¡Es fascinante!</li>
-                    <li>Sólo puedo "rustear" en fines de semana (o por las noches)</li>
-                    <li>Mi aprendizaje se vuelve lento</li>
-                    <li>¡Es fascinante!</li>
+                    <li>Quiero aprender, pero no tengo tiempo.</li>
+                    <li>Sólo puedo "rustear" en las noches o los fines de semana.</li>
+                    <li>Mi aprendizaje se vuelve lento.</li>    
                 </ul>
             </section>
             <section style="height: 100%">
-                <h2>Previene fallas de segmentación</h2>
-                <ul>
-                    <li>No hay fallas de segmentación</li>
-                    <li>No hay punteros nulos </li>
-                    <li>No hay punteros inválidos</li>
-                </ul>
+                <br/>
+                <h2>Siempre hay que buscar la convergencia entre tus intereses/pasiones y tu trabajo</h2>
             </section>
             <section style="height: 100%">
-                <h2>Seguridad de los hilos de ejecución</h2>
-                <ul>
-                    <li>Previene condiciones de carrera de datos (data-races)</li>
-                    <li>Sólo puede haber un dueño de los datos al mismo tiempo</li>
-                </ul>
+                <br/>
+                <h2>...debo buscar la forma de usar Rust en el trabajo</h2>
             </section>
-
             <section>
-                <section>
-                    <h2>¡Hola mundo!</h2>
-                    <pre><code class="rust">
-fn main() {
-    println!("¡Hola mundo!");
-}
-                    </code></pre>
-                </section>
-                <section>
-                    <h2>¡Hola compilador!</h2>
-                    <pre><code class="rust" data-trim data-noescape>
-fn main() {
-    let s = String::from("¡Hola mundo!");
-    let a = s;
-    println!("{}", a);
-    println!("{}", b);
-}
-                    </code></pre>
-                    <span class="fragment">
-                        <pre><code>
-error[E0382]: use of moved value: `s`
- --> foo.rs:5:20
-     |
-     3 |     let a = s;
-     |         - value moved here
-     4 |     println!("{}", a);
-     5 |     println!("{}", s);
-     |                    ^ value used here after move
-                        </code></pre></span>
-                </section>
-                <section>
-                    <h2>Propiedad y préstamo</h2>
-                    <h4>Ownership and borrowing</h4>
-                    <ul>
-                        <li>Es la base del manejo de memoria</li>
-                        <li>Cada valor tiene exáctamente un dueño</li>
-                        <li>Las variables se mueven a nuevas localidades, previniendo que las anteriores las usen</li>
-                        <li>Lo que tienes, lo puedes prestar</li>
-                    </ul>
-                </section>
+                <h2>¿Qué tengo que hacer para usar Rust en el trabajo?</h2>
+                <ul>
+                    <li>Ir con mi jefx, explicarle lo maravilloso que es Rust y listo.</li>
+                    <li>...no es tan fácil.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Tus compañerxs</h2>
+                <img src="images/DiffusionOfInnovation.png">
+                <div><a href="https://en.wikipedia.org/wiki/Technology_adoption_life_cycle">Fuente</a></div>
+            </section>
+            <section>
+                <h2>¿Cómo convencer a tus compañeros?</h2>
+                <ul>
+                    <li>Es el primer gran reto.</li>
+                    <li>Identifica a los que están a la izquierda de la gráfica.</li>
+                    <li></li>
+                    <li>Lo que tienes, lo puedes prestar</li>
+                </ul>
+            </section>
                 <section>
                     <h2>Propiedad y préstamo</h2>
                     <pre><code class="rust" data-trim data-noescape>
@@ -202,7 +173,6 @@ fn main() {
 }
                     </code></pre>
                 </section>
-            </section>
 				    <section>
                 <section>
                     <h2>El paradigma de Rust</h2>
