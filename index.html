@@ -31,26 +31,17 @@
                 <div>Twitter: @el_ericho</div>
                 <div>erich@mastodon.social</div>
             </section>
-            <section style="height: 100%;">
+            <section>
                 <h2>¿Y éste quién es?</h2>
                 <ul>
-                    <li>Estudió electrónica.</li>
+                    <li>"Ingeniero de software"</li>
                     <li>Aún no aprende a programar.</li>
-                    <li>Pero le gusta programar.</li>
-                    <li>Ingeniero de software en Intel.</li>
-                </ul>
-            </section>
-            <section style="height: 100%;">
-                <h2>Mi experiencia con Rust</h2>
-                <ul>
-                    <li>Me enteré que existe hace como un año.</li>
-                    <li>Me atreví a escribir código hace como 6 meses.</li>
-                    <li>Envié un par de parches a algunos proyectos.</li>
-                    <li>Algunos programas internos.</li>
+                    <li>Rusteador de fines de semana.</li>
+                    <li>Busca la forma de adoptar Rust en su trabajo.</li>
                 </ul>
             </section>
             <section>
-                <section style="height: 100%">
+                <section>
                     <h2>¿Porqué deberiamos usar Rust?</h2>
                     <ul>
                         <li>Las razones ya explicadas</li>
@@ -58,21 +49,21 @@
                         <li>¿Sentido común?</li>
                     </ul>
                 </section>
-                <section style="height: 100%">
-                    <h2>Por seguridad</h2>
-                    <ul>
-                        <li>Un gran número de CVE es por problemas de memoria.</li>
-                        <li>Rust ayuda a mitigar estos problemas</li>
-                    </ul>
-                </section>
-                <section style="height: 100%">
+                <section>
                     <h2>Por confiabilidad</h2>
                     <ul>
                         <li>Nunca habrá fallas de segmentación.</li>
                         <li>El código concurrente libre de data-races.</li>
                     </ul>
                 </section>
-                <section style="height: 100%">
+                <section>
+                    <h2>Por seguridad</h2>
+                    <ul>
+                        <li>Un gran número de CVE es por problemas de memoria.</li>
+                        <li>Rust ayuda a mitigar estos problemas</li>
+                    </ul>
+                </section>
+                <section>
                     <h2>Por un mejor manejo de dependencias</h2>
                     <ul>
                         <li>Cargo hace toda la chamba.</li>
@@ -80,7 +71,7 @@
                         <li>Mejora la distribución del producto.</li>
                     </ul>
                 </section>
-                <section style="height: 100%">
+                <section>
                     <h2>Por que vuelve accesible la programación de sistemas</h2>
                     <ul>
                         <li>Poca formación en desarrollo a este nivel.</li>
@@ -90,7 +81,7 @@
                 </section>
             </section>
             <section>
-                <section style="height: 100%">
+                <section>
                     <h2>¿Cómo comenzamos a usar Rust?</h2>
                     <ul>
                         <li>Hay que buscarle un lugar.</li>
@@ -98,111 +89,114 @@
                         <li>Elegir a un candidato.</li>
                     </ul>
                 </section>
-            </section>
-            <section style="height: 100%">
-                <h3>Reimplementemos todo en Rust, ¡deprisa!, antes de que entremos en razón</h3>
-                <h2>Probablemente no es una buena idea</h2>
-            </section>
-            <section style="height: 100%">
-                <h2>Identificando deficiencias</h2>
-                <ul>
-                    <li>Sabemos de qué pie cojean nuestros proyectos.</li>
-                    <li>¿Hay un bajo desempeño en algún componente?</li>
-                    <li>Un programa con demasiados bugs.</li>
-                    <li>¿Código viejo e inmantenible?</li>
-                </ul>
-            </section>
-            <section style="height: 100%">
-                <h2>Rust tiene una interfaz de funciones foráneas (FFI)</h2>
-                <ul>
-                    <li>Es la forma en que Rust puede platicar con otros lenguajes</li>
-                    <li>Rust -> C</li>
-                    <li>C -> Rust</li>
-                    <li>Python -> Rust</li>
-                </ul>
-            </section>
-            <section style="height: 100%">
-                <h2>Creando un nuevo componente en Rust</h2>
-                <img src="images/rust-to-c.svg">
-                <ul>
-                    <li>Ya hay un código base que todos usan</li>
-                    <li>Está en una librería</li>
-                    <li>Rust puede usar símbolos de esa librería</li>
-                </ul>
-            </section>
-            <section style="height: 100%">
-                <h2>De Rust a C</h2>
-                <pre><code class="rust" data-trim data-noescape>
-extern crate libc;
-use libc::size_t;
-
-#[link(name = "snappy")]
-extern {
-    fn snappy_max_compressed_length(source_length: size_t) -> size_t;
-}
-
-fn main() {
-    let x = unsafe { snappy_max_compressed_length(100) };
-    println!("max compressed length of a 100 byte buffer: {}", x);
-}
-                </code></pre>
-                <a href="https://doc.rust-lang.org/book/first-edition/ffi.html">Fuente</a>
-            </section>
-            <section style="height: 100%">
-                <h3>El crate libc</h3>
-                <pre><code class="rust" data-trim data-noescape>
-extern crate libc;
-use libc::size_t;
-                </code></pre>
-                <ul>
-                    <li>Define tipos para interactuar con la librería C estándar</li>
-                    <li>Permite hablar con funciones nativas de C</li>
-                </ul>
-            </section>
-            <section style="height: 100%">
-                <h3>Ligar con la librería externa</h3>
-                <pre><code class="rust" data-trim data-noescape>
-#[link(name = "snappy")]
-extern {
-    fn snappy_max_compressed_length(source_length: size_t) -> size_t;
-}
-                </code></pre>
-                <ul>
-                    <li>El bloque "extern" es para cosas que van a estar definidas aquí.</li>
-                    <li>Le decimos que busque esos símbolos en la librería "snappy"</li>
-                </ul>
+                <section>
+                    <p>Reimplementemos todo en Rust, ¡deprisa!, antes de que entremos en razón.</p>
+                    <span class="fragment">...probablemente no es una buena idea.</span>
+                </section>
+                <section>
+                    <h2>Identificar deficiencias</h2>
+                    <ul>
+                        <li>Sabemos de qué pie cojean nuestros proyectos.</li>
+                        <li>¿Hay un bajo desempeño en algún componente?</li>
+                        <li>Un programa con demasiados bugs.</li>
+                        <li>¿Código viejo, inmantenible, sin pruebas?</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Rust tiene una interfaz de funciones foráneas (FFI)</h2>
+                    <ul>
+                        <li>Es la forma en que Rust puede platicar con otros lenguajes</li>
+                        <li>Rust -> C</li>
+                        <li>C -> Rust</li>
+                        <li>Python -> Rust</li>
+                    </ul>
+                </section>
             </section>
             <section>
-                <h3>Usar la funcion externa</h3>
-                <pre><code class="rust" data-trim data-noescape>
+                <section>
+                    <h3>Creando un nuevo componente en Rust</h3>
+                    <img src="images/rust-to-c.svg">
+                    <ul>
+                        <li>Ya hay un código base que todos usan</li>
+                        <li>Está en una librería</li>
+                        <li>Rust puede usar símbolos de esa librería</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>De Rust a C</h3>
+                    <pre><code class="rust" data-trim data-noescape>
+extern crate libc;
+use libc::size_t;
+
+#[link(name = "snappy")]
+extern {
+    fn snappy_max_compressed_length(source_length: size_t) -> size_t;
+}
+
 fn main() {
     let x = unsafe { snappy_max_compressed_length(100) };
     println!("max compressed length of a 100 byte buffer: {}", x);
 }
-                </code></pre>
-                <ul>
-                    <li>Todas las operaciones externas son "unsafe".</li>
-                </ul>
+                    </code></pre>
+                    <a href="https://doc.rust-lang.org/book/first-edition/ffi.html">Fuente</a>
+                </section>
+                <section>
+                    <h3>El crate libc</h3>
+                    <pre><code class="rust" data-trim data-noescape>
+extern crate libc;
+use libc::size_t;
+                    </code></pre>
+                    <ul>
+                        <li>Define tipos para interactuar con la librería C estándar</li>
+                        <li>Permite hablar con funciones nativas de C</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Ligar con la librería externa</h3>
+                    <pre><code class="rust" data-trim data-noescape>
+#[link(name = "snappy")]
+extern {
+    fn snappy_max_compressed_length(source_length: size_t) -> size_t;
+}
+                    </code></pre>
+                    <ul>
+                        <li>El bloque "extern" es para cosas que van a estar definidas aquí.</li>
+                        <li>Le decimos que busque esos símbolos en la librería "snappy"</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Usar la funcion externa</h3>
+                    <pre><code class="rust" data-trim data-noescape>
+fn main() {
+    let x = unsafe { snappy_max_compressed_length(100) };
+    println!("max compressed length of a 100 byte buffer: {}", x);
+}
+                    </code></pre>
+                    <ul>
+                        <li>Todas las operaciones externas son "unsafe".</li>
+                    </ul>
+                </section>
             </section>
-            <section style="height: 100%">
-                <h2>Extendiendo o migrando un componente existente</h2>
-                <img src="images/c-to-rust.svg">
-                <ul>
-                    <li>Embeber código Rust</li>
-                    <li>Crear una librería estática</li>
-                    <li>Hacer que las otras partes del código usen Rust</li>
-                </ul>
-            </section>
+            <section>
+                <section>
+                    <h3>Extendiendo o migrando un componente existente</h3>
+                    <img src="images/c-to-rust.svg">
+                    <ul>
+                        <li>Embeber código Rust</li>
+                        <li>Crear una librería estática</li>
+                        <li>Hacer que las otras partes del código usen Rust</li>
+                    </ul>
+                </section>
 
-            <section style="height: 100%">
-                <h2>De C a Rust</h2>
-                <pre><code class="rust" data-trim data-noescape>
+                <section>
+                    <h3>De C a Rust</h3>
+                    <pre><code class="rust" data-trim data-noescape>
 #[no_mangle]
 pub extern fn hello_rust() {
     println!("Hello, world!");
 }
-                </code></pre>
-                <pre><code class="rust" data-trim data-noescape>
+                    </code></pre>
+                    <pre><code class="rust" data-trim data-noescape>
 extern void hello_rust();
 
 int main (int argc, char *argv[])
@@ -210,269 +204,99 @@ int main (int argc, char *argv[])
     hello_rust();
     return 0;
 }
-                </code></pre>
-            </section>
-            <section style="height: 100%">
-                <h3>El "no_mangle" es el secreto</h3>
-                <pre><code class="rust" data-trim data-noescape>
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>El "no_mangle" es el secreto</h3>
+                    <pre><code class="rust" data-trim data-noescape>
 #[no_mangle]
 pub extern fn hello_rust() {
     println!("Hello, world!");
 }
-                </code></pre>
-                <ul>
-                    <li>"no_mangle" desactiva el decorado de nombres en símbolos.</li>
-                    <li>La función se declara como pública.</li>
-                </ul>
+                    </code></pre>
+                    <ul>
+                        <li>"no_mangle" desactiva el decorado de nombres en símbolos.</li>
+                        <li>La función se declara como pública.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Compilar como librería estática</h3>
+                    <pre><code class="toml" data-trim data-noescape>
+[lib]
+crate-type = ["staticlib"]
+                    </code></pre>
+                    <ul>
+                        <li>Se genera un archivo.a.</li>
+                        <li>Ese archivo puede vivir dentro de un ejecutable</li>
+                    </ul>
+                </section>
             </section>
-            <section style="height: 100%">
-                <h3>Python y Rust</h3>
+            <section>
+                <h3>Python y Rust (otro ejemplo)</h3>
                 <pre><code class="python" data-trim data-noescape>
 from ctypes import cdll
 lib = cdll.LoadLibrary("target/release/libtest.so")
 lib.hello_rust()
                 </code></pre>
                 <ul>
-                    <li>El módulo cdll puede abrir una librería hecha en Rust</li>
+                    <li>El módulo cdll puede abrir una librería hecha en Rust.</li>
                     <li>Llamar a las funciones definidas ahí.</li>
                 </ul>
             </section>
-
             <section>
-                <h2>Tus compañerxs</h2>
-                <img src="images/DiffusionOfInnovation.png">
-                <div><a href="https://en.wikipedia.org/wiki/Technology_adoption_life_cycle">Fuente</a></div>
-            </section>
-            <section>
-                <h2>¿Cómo convencer a tus compañeros?</h2>
+                <h3>Entonces, hasta ahora...</h3>
                 <ul>
-                    <li>Es el primer gran reto.</li>
-                    <li>Identifica a los que están a la izquierda de la gráfica.</li>
-                    <li></li>
-                    <li>Lo que tienes, lo puedes prestar</li>
+                    <li>Podemos tomar algo y mejorarlo con Rust.</li>
+                    <li>Tener suficientes argumentos técnicos para convencer a tu jefx.</li>
                 </ul>
             </section>
-            <section style="height: 100%">
-                <h2>Convencer de usar algo nuevo</h2>
-                <ul>
-                    <li>No es una tarea fácil</li>
-                    <li>Toma tiempo</li>
-                    <li>Convencer a tu jefx es parte fácil</li>
-                    <li>¿Cuándo?</li>
-                </ul>
-            </section>
-                <section>
-                    <h2>Propiedad y préstamo</h2>
-                    <pre><code class="rust" data-trim data-noescape>
-fn main() {
-    let s = String::from("¡Hola mundo!");
-    let a = &s;
-    println!("{}", a);
-    println!("{}", b);
-}
-
-                    </code></pre>
-                    <a href="https://is.gd/c6UpFG">Pruébalo</a>
-                </section>
-                <section>
-                    <h2>¡Hola compilador! (v2)</h2>
-                    <pre><code class="rust" data-trim data-noescape>
-fn main() {
-    let s = 5;
-    s = s + 1;
-    println!("{}", s);
-}
-                    </code></pre>
-                    <span class="fragment">
-                        <pre><code>
-error[E0384]: re-assignment of immutable variable `s`
- --> foo.rs:3:5
-  |
-  2 |     let s = 5;
-  |         - first assignment to `s`
-  3 |     s = s + 1;
-  |     ^^^^^^^^^ re-assignment of immutable variable
-                        </code></pre></span>
-                </section>
-                <section>
-                    <h2>Variables inmutables por defecto</h2>
-                    <ul>
-                        <li>Cualquier variable (o binding) es inmutable.</li>
-                        <li>Si queremos que cambie en el futuro hay que marcarlo explícitamente.</li>
-                    </ul>
-                </section>
-                <section>
-                    <h2>Variables inmutables por defecto</h2>
-                    <pre><code class="rust" data-trim data-noescape>
-fn main() {
-    let mut s = 5;
-    s = s + 1;
-    println!("{}", s);
-}
-                    </code></pre>
-                </section>
-                <section>
-                    <h2>Propiedad y préstamo de valores mutables</h2>
-                    <pre><code class="rust" data-trim data-noescape>
-fn add_one(x: &mut i32) {
-    *x = *x + 1
-}
-
-fn main() {
-    let mut s = 5;
-    add_one(&mut s);
-    println!("{}", s);
-}
-                    </code></pre>
-                    <a href="https://is.gd/LPTkXZ">Pruébalo</a>
-                </section>
-                <section>
-                    <h2>Operaciones inseguras</h2>
-                    <ul>
-                        <li>Rust no deja hacer cosas malas si se lo pedimos.</li>
-                        <li>El compilador ignorará una sección de código si está marcada como "unsafe"</li>
-                        <li>Útil para hablar con componentes hecho en otros lenguajes.</li>
-                    </ul>
-                </section>
-                <section>
-                    <h2>Usando unsafe</h2>
-                    <pre><code class="rust" data-trim data-noescape>
-fn main() {
-    let raw_p: *const u32 = &10;
-
-    unsafe {
-        assert!(*raw_p == 10);
-    }
-}
-                    </code></pre>
-                </section>
-				    <section>
-                <section>
-                    <h2>El paradigma de Rust</h2>
-                    <ul>
-                        <li>Es un lenguaje multiparadigma</li>
-                        <li>Hay elementos de POO, programación funcional, estructurada, etc</li>
-                        <li>Se dice que Rust tiene su propio paradigma</li>
-                    </ul>
-                </section>
-                <section>
-                    <h2>Lo mio es la POO, ¿Rust me sirve?</h2>
-                    <ul>
-                        <li>Puedes hacer casi todo lo mismo que con POO</li>
-                        <li>Puede ser diferente a lo que estás acostumbrad@</li>
-                        <li>Tienes datos y comportamiento, encapsulamiento, herencia, entre otros.</li>
-                    </ul>
-                </section>
-                <section>
-                    <h2>Una estructura y métodos</h2>
-                    <pre><code class="rust" data-trim data-noescape>
-pub struct AveragedCollection {
-    list: Vec&lti32&gt,
-    average: f64,
-}
-
-impl AveragedCollection {
-    pub fn add(&mut self, value: i32) {
-        self.list.push(value);
-        self.update_average();
-    }
-    pub fn average(&self) -> f64 {
-        self.average
-    }
-
-    fn update_average(&mut self) {
-        let total: i32 = self.list.iter().sum();
-        self.average = total as f64 / self.list.len() as f64;
-    }
-}
-                    </code></pre>
-                </section>
-            </section>
             <section>
                 <section>
-                    <h2>La interfaz de funciones foráneas (FFI)</h2>
+                    <p>Pero...</p>
+                    <p><span class="fragment">convencer a tu jefx es lo más facil.</span></p>
+                    <p><span class="fragment">El otro factor es...</span></p>
+                    <p><span class="fragment">Tus compañerxs de trabajo.</span></p>
+                </section>
+                <section>
+                    <h2>Tus compañerxs</h2>
+                    <img src="images/DiffusionOfInnovation.png">
+                    <div><a href="https://en.wikipedia.org/wiki/Technology_adoption_life_cycle">Fuente</a></div>
+                </section>
+                <section>
+                    <h2>¿Cómo convencer a tus compañerxs?</h2>
                     <ul>
-                        <li>¡Paren todo, vamos a rehacerlo en Rust! &lt- Probablemente una mala idea</li>
-                        <li>Rust puede platicar con otros lenguajes.</li>
-                        <li>Si tu lenguaje habla con C, puede hablar con Rust</li>
-                        <li>Ejemplo, <a href="https://blog.sentry.io/2016/10/19/fixing-python-performance-with-rust.html">arreglar el desempeño de Python con Rust</a></li>
+                        <li>Identifica a los que están a la izquierda de la gráfica.</li>
+                        <li>Háblales de Rust</li>
+                        <li>Involúcralos</li>
                     </ul>
                 </section>
                 <section>
-                    <h2>Portando código a Rust incrementálmente</h2>
+                    <h2>Intenta un proyecto alterno</h2>
                     <ul>
-                        <li>Tengo un viejo programa en C que quiero pasar a Rust</li>
-                        <li>Usa la FFI</li>
-                        <li>Refactoriza, pasa tu función a Rust y recompila.</li>
-                    </ul>
-                    <a href="https://github.com/carols10cents/rust-out-your-c-talk">Rust out your C</a>
-                </section>
-            </section>
-            <section>
-                <section>
-                    <h2>¿Hay librerías en Rust?</h2>
-                    <ul>
-                        <li><a href="https://doc.rust-lang.org/std/">La librerìa estándar</a> tiene soporte para muchas cosas.</li>
-                        <li>Para todo lo demás existen los <a href="https://crates.io/">crates</a></li>
-                        <li>9k crates disponibles</li>
-                    </ul>
-                </section>
-            </section>
-				    <section>
-                <section>
-                    <h3>¿Por qué debería aprender Rust?</h3>
-                    <ul>
-                        <li>Pinta a ser el futuro en la programación de sistemas (y en otras muchas áreas)</li>
-                        <li>Te hace un mejor desarrollador</li>
-                        <li>Lenguaje más querido en la encuesta de stackoverflow de los dos últimos años</li>
-                        <li>Conocer como es un lenguaje moderno. (no es un lenguaje hipster, hipster es usar lo mismo de hace 15 años)</li>
-                    </ul>
-                </section>
-                <section>
-                    <h2>No me dedico a programar sistemas</h2>
-                    <h3>¿De qué me sirve Rust?</h3>
-                    <ul>
-                        <li>Rust acerca la programación de sistemas a cualquier desarrollador.</li>
-                        <li>Te obliga a pensar diferente</li>
-                        <li>"¿Hasta dónde vivirá este cacho de memoria?"</li>
-                    </ul>
-                </section>
-                <section>
-                    <h2>¿Quién usa Rust?</h2>
-                    <ul>
-                        <li>Mozilla, Dropbox, NPM, entre muchos otros</li>
-                        <li><a href="https://www.rust-lang.org/en-US/friends.html">Lista completa</a></li>
-                    </ul>
-                </section>
-                <section>
-                    <h2>La comunidad de Rust</h2>
-                    <ul>
-                        <li>Es una comunidad amigable y abierta</li>
-                        <li>Se nota que aman hacer esto</li>
-                        <li>Siempre dispuestos a ayudar y orientarte</li>
+                        <li>Siempre hay algo que automatizar.</li>
+                        <li>Impleméntalo.</li>
+                        <li>Servirá como un juguete de aprendizaje.</li>
                     </ul>
                 </section>
             </section>
             <section>
                 <section>
-                    <h2>Proyectos interesantes</h2>
-                    <ul>
-                        <li><a href="https://www.redox-os.org/">Redox</a>: Un sistema operativo hecho en Rust</li>
-                        <li><a href="https://rocket.rs/">Rocket</a>: Un web framework</li>
-                        <li><a href="http://diesel.rs/">Diesel</a>: Un ORM y generador de consultas</li>
-                    </ul>
+                    <h3>¡A vender la idea!</h3>
                 </section>
                 <section>
-                    <h2>Recursos</h2>
+                    <blockquote>Si vas a vender tamales, grita que vendes tamales.</blockquote>
+                    <p><span class="fragment">Informa siempre de lo que hacen, pueden salir muchas oportunidades.</span></p>
+                </section>
+                <section>
+                    <h3>Selecciona qué quieres vender</h3>
                     <ul>
-                        <li><a href="https://doc.rust-lang.org/book/">El libro</a>: El libro de Rust</li>
-                        <li><a href="https://doc.rust-lang.org/nomicon/">Rustonomicon</a>: El libro sobre las artes oscuras de Rust</li>
-                        <li><a href="https://users.rust-lang.org/">Foro de usuarios</a>: El principal foro de Rust</li>
-                        <li><a href="https://www.reddit.com/r/rust/">Reddit</a>: El subreddit de Rust</li>
-                        <li><a href="https://rustbyexample.com/">Rust con ejemplos</a>: Muchos ejemplos de Rust</li>
-                        <li><a href="http://exercism.io/languages/rust/about">Exercism en Rust</a>: Un curso de Rust</li>
+                        <li>Desempeño, reducción de bugs, etc</li>
+                        <li>Considera la curva de aprendizaje.</li>
                     </ul>
                 </section>
+            </section>
+            <section>
+                <h1>¡Gracias!</h1>
             </section>
 			</div>
 		</div>
